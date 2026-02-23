@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ton Nom | Links & Offres</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7b2cbf;
+            --accent: #ff006e;
+            --bg: #0a0a0f;
+            --surface: rgba(255, 255, 255, 0.03);
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 0, 110, 0.1) 0%, transparent 50%);
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Profile Section */
+        .profile {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .profile-img-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .profile-img-container:hover .profile-img {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.5);
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: var(--primary);
+            color: var(--bg);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 3px solid var(--bg);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .handle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .bio {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Social Icons */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .social-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Featured Section */
+        .featured {
+            background: linear-gradient(135deg, rgba(123, 44, 191, 0.2), rgba(0, 212, 255, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .featured::before {
+            content: '✨ OFFRE SPÉCIALE';
+            position: absolute;
+            top: 12px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            letter-spacing: 1px;
+        }
+
+        .featured-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .featured-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .featured-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--bg);
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .featured-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Links Section */
+        .links-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card:nth-child(1) { animation-delay: 0.1s; }
+        .link-card:nth-child(2) { animation-delay: 0.2s; }
+        .link-card:nth-child(3) { animation-delay: 0.3s; }
+        .link-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .link-card:hover {
+            transform: translateX(8px);
+            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .link-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .link-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .link-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .link-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .link-arrow {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:hover .link-arrow {
+            transform: translateX(4px);
+            color: var(--primary);
+        }
+
+        .clicks {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .link-card:hover .clicks {
+            opacity: 1;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            margin-top: 32px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .newsletter-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--primary);
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 480px) {
+            .name {
+                font-size: 1.5rem;
+            }
+            
+            .stats {
+                gap: 24px;
+            }
+            
+            .stat-value {
+                font-size: 1.25rem;
+            }
+            
+            .link-card {
+                padding: 14px;
+            }
+            
+            .link-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile">
+            <div class="profile-img-container">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Profile" class="profile-img" id="profileImg">
+                <div class="verified-badge">✓</div>
+            </div>
+            <h1 class="name">Ton Nom</h1>
+            <div class="handle">
+                <span>@tonhandle</span>
+                <span style="color: var(--primary);">•</span>
+                <span>Coach & Créateur</span>
+            </div>
+            <p class="bio">
+                🚀 J'aide les entrepreneurs à scaler leur business à 6 chiffres<br>
+                📈 +500 clients accompagnés • Stratégie & Mindset
+            </p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">50K+</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">500+</div>
+                    <div class="stat-label">Clients</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2M€</div>
+                    <div class="stat-label">Générés</div>
+                </div>
+            </div>
+
+            <div class="socials">
+                <a href="#" class="social-btn" title="Instagram">📸</a>
+                <a href="#" class="social-btn" title="TikTok">🎵</a>
+                <a href="#" class="social-btn" title="YouTube">▶️</a>
+                <a href="#" class="social-btn" title="Twitter">🐦</a>
+                <a href="#" class="social-btn" title="LinkedIn">💼</a>
+            </div>
+        </div>
+
+        <!-- Featured Offer -->
+        <div class="featured">
+            <div class="featured-title">
+                🎯 Programme Scale Up 2024
+            </div>
+            <div class="featured-desc">
+                Accès complet à ma méthode pour passer de 0 à 10k€/mois en 90 jours. Offre limitée - 50% de réduction cette semaine.
+            </div>
+            <a href="#" class="featured-btn" onclick="trackClick('programme')">
+                <span>Rejoindre maintenant</span>
+                <span>→</span>
+            </a>
+        </div>
+
+        <!-- Links Section -->
+        <div class="links-title">Mes Liens</div>
+        
+        <a href="#" class="link-card" onclick="trackClick('calendly')">
+            <div class="link-icon" style="background: linear-gradient(135deg, #0066ff, #00d4ff);">
+                📅
+            </div>
+            <div class="link-content">
+                <div class="link-title">
+                    Appel Stratégique Gratuit
+                    <span style="font-size: 0.7rem; background: rgba(0, 212, 255, 0.2); padding: 2px 8px; border-radius: 20px; color: var(--primary);">POPULAIRE</span>
+                </div>
+                <div class="link-desc">Réserve ton appel 1-to-1 de 30 min pour définir ta stratégie</div>
+            </div>
+            <div class="link-arrow">→</div>
+            <div class="clicks">1.2k clics</div>
+        </a>
+
+        <a href="#" class="link-card" onclick="trackClick('ebook')">
+            <div class="link-icon" style="background: linear-gradient(135deg, #ff006e, #8338ec);">
+                📚
+            </div>
+            <div class="link-content">
+                <div class="link-title">Guide Gratuit : Les 7 Erreurs Fatales</div>
+                <div class="link-desc">Ebook PDF - Ce qui t'empêche de passer au niveau supérieur</div>
+            </div>
+            <div class="link-arrow">→</div>
+            <div class="clicks">3.4k clics</div>
+        </a>
+
+        <a href="#" class="link-card" onclick="trackClick('masterclass')">
+            <div class="link-icon" style="background: linear-gradient(135deg, #fb5607, #ffbe0b);">
+                🎥
+            </div>
+            <div class="link-content">
+                <div class="link-title">Masterclass Replay</div>
+                <div class="link-desc">"Comment j'ai fait 100k€ en un lancement" - Accès gratuit</div>
+            </div>
+            <div class="link-arrow">→</div>
+            <div class="clicks">892 clics</div>
+        </a>
+
+        <a href="#" class="link-card" onclick="trackClick('telegram')">
+            <div class="link-icon" style="background: linear-gradient(135deg, #0088cc, #00d4ff);">
+                ✈️
+            </div>
+            <div class="link-content">
+                <div class="link-title">Ma Communauté Telegram</div>
+                <div class="link-desc">Rejoins +10,000 entrepreneurs ambitieux</div>
+            </div>
+            <div class="link-arrow">→</div>
+            <div class="clicks">5.1k clics</div>
+        </a>
+
+        <a href="#" class="link-card" onclick="trackClick('podcast')">
+            <div class="link-icon" style="background: linear-gradient(135deg, #8338ec, #3a86ff);">
+                🎧
+            </div>
+            <div class="link-content">
+                <div class="link-title">Écouter mon Podcast</div>
+                <div class="link-desc">Nouvel épisode chaque lundi - Business & Mindset</div>
+            </div>
+            <div class="link-arrow">→</div>
+            <div class="clicks">2.3k clics</div>
+        </a>
+
+        <!-- Newsletter -->
+        <div class="newsletter">
+            <div class="newsletter-title">📧 La Newsletter des Winners</div>
+            <div class="newsletter-desc">
+                Reçois chaque dimanche mes meilleures stratégies directement dans ta boîte mail.
+            </div>
+            <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+                <input type="email" class="newsletter-input" placeholder="ton@email.com" required>
+                <button type="submit" class="newsletter-btn">S'inscrire</button>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Made with 🔥 par SXM_SXM© 2026</p>
+            <p style="margin-top: 8px; font-size: 0.75rem;">Propulsé par LinkPro</p>
+        </div>
+    </div>
+
+    <script>
+        // Animation d'entrée
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.link-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+
+        // Tracking des clics (simulation)
+        function trackClick(linkName) {
+            console.log(`Clic sur: ${linkName}`);
+            // Ici tu peux ajouter Google Analytics ou autre
+            // gtag('event', 'click', { 'link': linkName });
+            
+            // Animation de feedback
+            event.currentTarget.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+        }
+
+        // Gestion newsletter
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.newsletter-btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = '✓ Inscrit !';
+            btn.style.background = 'linear-gradient(135deg, #00c853, #00e676)';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        }
+
+        // Effet parallax subtil sur les orbes
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (0.5 - x) * speed;
+                const yOffset = (0.5 - y) * speed;
+                orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // Changer la photo de profil dynamiquement
+        // Décommente et modifie l'URL pour mettre ta vraie photo
+        // document.getElementById('profileImg').src = 'URL_DE_TA_PHOTO';
+    </script>
+</body>
+</html>
